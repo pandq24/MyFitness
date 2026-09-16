@@ -1,6 +1,6 @@
 const CACHE_NAME = "my-fitness-cache-v1";
 const CORE_ASSETS = [
-  "./my_fitness_mobile.html",
+  "./index.html",
   "./manifest.json",
   "./icon-192.png",
   "./icon-512.png",
