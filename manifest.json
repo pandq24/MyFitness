@@ -2,7 +2,7 @@
   "name": "MY FITNESS",
   "short_name": "MY FITNESS",
   "description": "自分専用の筋トレ・体組成管理アプリ",
-  "start_url": "./my_fitness_mobile.html",
+  "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
