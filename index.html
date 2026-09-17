@@ -79,7 +79,7 @@ footer span{font-size:12px;color:#6b7280}
 <div style="margin-top:12px" class="progress"><div id="proteinBar" class="bar"></div></div>
 <p class="note">目標：ゆっくり増量（月＋0.5～1kg程度）／タンパク質100～120g</p>
 </section>
-
+ 
 <section class="card">
 <div class="sessionhead"><h2 style="margin:0">🏋️ 今日の筋トレ</h2><button class="secondary" id="editModeBtn" onclick="toggleEditMode()" style="padding:7px 12px;font-size:12px">✏️ 編集</button></div>
 <div class="tabs">
@@ -90,7 +90,7 @@ footer span{font-size:12px;color:#6b7280}
 <div id="day1"></div><div id="day2" class="hidden"></div><div id="day3" class="hidden"></div>
 <button class="full" style="margin-top:14px" onclick="startWorkout()">🏁 筋トレを開始</button>
 </section>
-
+ 
 <section id="sessionCard" class="card hidden">
 <div class="sessionhead"><h2 style="margin:0">🏋️ トレーニング中</h2><span id="sessionProgress"></span></div>
 <div class="progress" style="margin-bottom:14px"><div id="sessionBar" class="bar"></div></div>
@@ -111,7 +111,7 @@ footer span{font-size:12px;color:#6b7280}
 </div>
 <button class="secondary full" id="cancelBtn" style="margin-top:10px" onclick="cancelWorkout()">中断してやめる</button>
 </section>
-
+ 
 <section class="card">
 <div class="sessionhead"><h2 style="margin:0">📅 実施カレンダー</h2><span id="calTitle"></span></div>
 <div class="row" style="margin-top:0 0 8px">
@@ -124,7 +124,7 @@ footer span{font-size:12px;color:#6b7280}
 <div class="calwrap" id="calGrid"></div>
 <div id="calDetail" class="hidden"></div>
 </section>
-
+ 
 <section class="card">
 <h2>📊 期間レポート</h2>
 <div class="row" style="margin-top:0">
@@ -137,20 +137,23 @@ footer span{font-size:12px;color:#6b7280}
 </div>
 <div id="reportBody" style="margin-top:12px"></div>
 </section>
-
+ 
 <section class="card">
-<h2>🍚 栄養管理</h2>
-<label>今日のタンパク質（g）</label>
-<input id="proteinInput" type="number" min="0" placeholder="例：110" oninput="saveProtein()">
-<p class="note">乳糖不耐を考慮し、無理に牛乳や乳糖の多い食品に頼らない構成がおすすめです。</p>
-<div class="food"><span>鶏むね肉 150g</span><b>約35g</b></div>
-<div class="food"><span>卵 2個</span><b>約12g</b></div>
-<div class="food"><span>納豆 1パック</span><b>約8g</b></div>
-<div class="food"><span>豆腐 150g</span><b>約10g</b></div>
-<div class="food"><span>ご飯 200g</span><b>約5g</b></div>
-<p class="note">※タンパク質量は商品・調理状態で変わる目安値です。</p>
+<h2>🍚 栄養管理（タンパク質ログ）</h2>
+<label>食べたもの</label>
+<input id="foodNameInput" type="text" placeholder="例：鶏むね肉 150g">
+<label>タンパク質（g）</label>
+<div class="row" style="margin-top:0">
+<input id="foodProteinInput" type="number" step="0.1" min="0" placeholder="例：35">
+<button onclick="addFoodEntry()">追加</button>
+</div>
+<div class="progress" style="margin-top:14px"><div id="proteinBar2" class="bar"></div></div>
+<p class="note" style="margin-top:6px">今日の合計：<b><span id="proteinTotalShow">0</span> / 110 g</b></p>
+<div id="foodLogList" style="margin-top:8px"></div>
+<p class="note" style="margin-top:10px">乳糖不耐を考慮し、無理に牛乳や乳糖の多い食品に頼らない構成がおすすめです。</p>
+<p class="note">参考目安：鶏むね肉150g＝約35g／卵2個＝約12g／納豆1パック＝約8g／豆腐150g＝約10g／ご飯200g＝約5g（商品・調理状態で変わります）</p>
 </section>
-
+ 
 <section class="card">
 <h2>🧬 体組成データ</h2>
 <div class="grid">
@@ -187,7 +190,7 @@ footer span{font-size:12px;color:#6b7280}
 <input type="file" id="weightCsvFile" accept=".csv,text/csv" class="hidden" onchange="importWeightCSV(event)">
 <p class="note">EufyLifeアプリの「Me」タブ→「プライバシーとデータ」→「すべてのデータをエクスポート」で書き出したCSVファイルを選択してください。「日付」に加えて、体重・BMI・体脂肪率・体脂肪量・筋肉量・筋肉率・除脂肪体重・基礎代謝のうち見出しが一致する列を自動で読み取って取り込みます。既存の同じ日付のデータは上書きされます。</p>
 </section>
-
+ 
 <section class="card">
 <h2>🎯 今の重点</h2>
 <p>① <b>三角筋中部</b>：肩幅・なで肩を目立ちにくくする</p>
@@ -196,7 +199,7 @@ footer span{font-size:12px;color:#6b7280}
 <p>④ <b>リア・僧帽筋中下部</b>：肩と背中の立体感</p>
 <p>⑤ <b>脚・体幹</b>：全身の筋肉量と姿勢の安定</p>
 </section>
-
+ 
 <section class="card">
 <h2>⚙️ 重量アップのルール</h2>
 <p class="note">・各セット「あと2回できそう」程度で止める。<br>
@@ -205,7 +208,7 @@ footer span{font-size:12px;color:#6b7280}
 ・翌日まで強い疲労が残るなら、まずセット数を1つ減らす。<br>
 ・種目に🔺アップ推奨バッジが付いたら、次回そのセットの重量を上げてみましょう。</p>
 </section>
-
+ 
 <section class="card">
 <h2>💾 データのバックアップ</h2>
 <p class="note">記録データはこの端末のブラウザ内だけに保存されています。機種変更やキャッシュ削除で消えてしまうため、時々エクスポートしておくと安心です。</p>
@@ -220,7 +223,7 @@ footer span{font-size:12px;color:#6b7280}
 </main>
 <footer><span>あなた専用｜ベンチなし・ダンベルのみ</span></footer>
 <div id="toast"></div>
-
+ 
 <script>
 /* ===== 初期データ ===== */
 const defaultExercises={
@@ -247,13 +250,13 @@ const defaultExercises={
 {id:"d3_5",name:"ダンベルルーマニアンデッドリフト",weight:"8.5kg",reps:"10～15回 × 3",target:"脚・臀部"},
 {id:"d3_6",name:"デッドバグ",weight:"自重",reps:"左右10回 × 2",target:"体幹"}
 ]};
-
+ 
 let exercisesData=loadExercises();
 let historyLog=loadHistory();
 let activeDay=1;
 let editMode=false;
 let calOffset=0;
-
+ 
 function loadExercises(){
 const raw=localStorage.getItem("exercisesData");
 if(raw){try{return JSON.parse(raw);}catch(e){}}
@@ -266,7 +269,7 @@ return {};
 }
 function saveExercises(){localStorage.setItem("exercisesData",JSON.stringify(exercisesData));}
 function saveHistory(){localStorage.setItem("historyLog",JSON.stringify(historyLog));}
-
+ 
 function esc(s){return String(s??"").replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
 function fmt(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}
 function showToast(msg){
@@ -275,7 +278,7 @@ t.textContent=msg;t.classList.add("show");
 clearTimeout(window._toastTimer);
 window._toastTimer=setTimeout(()=>t.classList.remove("show"),2800);
 }
-
+ 
 /* ===== 種目のパース ===== */
 function parseSetCount(str){
 const m=String(str).match(/×\s*(\d+)/);
@@ -286,7 +289,7 @@ const m=String(str).match(/(\d+)(?:～(\d+))?回/);
 if(!m)return 999;
 return Number(m[2]||m[1]);
 }
-
+ 
 /* ===== 履歴・統計 ===== */
 function getPrevRecord(id){
 const arr=historyLog[id];
@@ -360,7 +363,7 @@ function computeTodayTonnage(){return computeTonnageForDate(fmt(new Date()));}
 function updateDashboardExtra(){
 document.getElementById("tonnageShow").textContent=Math.round(computeTodayTonnage());
 }
-
+ 
 /* ===== 通常表示・編集表示 ===== */
 function renderDay(n){
 const list=exercisesData[n];
@@ -430,7 +433,7 @@ activeDay=n;
 [1,2,3].forEach(x=>document.getElementById("day"+x).classList.toggle("hidden",x!==n));
 document.querySelectorAll(".tabs button").forEach(b=>b.classList.remove("active"));btn.classList.add("active");
 }
-
+ 
 /* ===== カレンダー ===== */
 function renderCalendar(offset){
 offset=offset||0;
@@ -507,11 +510,11 @@ selectedDate=null;
 document.getElementById("calDetail").classList.add("hidden");
 renderCalendar(calOffset);
 }
-
+ 
 /* ===== 筋トレ記録セッション ===== */
 let selectedDate=null;
 let sessionDay=1,sessionIndex=0,sessionResults=[],currentSetCount=0;
-
+ 
 function startWorkout(){
 const day=activeDay;
 const draft=JSON.parse(localStorage.getItem("sessionDraft")||"null");
@@ -535,7 +538,7 @@ stopRestTimer();
 document.querySelectorAll("main > section.card").forEach(s=>s.classList.remove("hidden"));
 document.getElementById("sessionCard").classList.add("hidden");
 }
-
+ 
 /* ===== 休憩タイマー ===== */
 let restTimerInterval=null,restTimerRemaining=0;
 function updateTimerText(){
@@ -729,7 +732,7 @@ if(exercisesData[day].some(ex=>(historyLog[ex.id]||[]).some(r=>r.date===dateStr)
 }
 return null;
 }
-
+ 
 /* ===== 期間レポート ===== */
 function getDateRange(type){
 const today=new Date();
@@ -845,7 +848,7 @@ const cancelBtn=document.getElementById("cancelBtn");
 cancelBtn.textContent="閉じる";
 cancelBtn.onclick=closeSessionScreen;
 }
-
+ 
 /* ===== 栄養・体組成（体重／BMI／体脂肪率／筋肉量／除脂肪体重／基礎代謝／体脂肪量／筋肉率） ===== */
 const METRICS=[
 {key:"weight",decimals:1,inputId:"weightInput",csvKeys:["weight","体重"]},
@@ -907,7 +910,7 @@ const n=values.length;
 const xAt=(i)=>padLeft+(n>1?i*(chartW/(n-1)):chartW/2);
 const yAt=(v)=>padTop+(scaleMax-v)/((scaleMax-scaleMin)||1)*chartH;
 const fmtMD=(s)=>{const p=s.split("-");return Number(p[1])+"/"+Number(p[2]);};
-
+ 
 let gridSvg="";
 for(let t=scaleMin;t<=scaleMax+1e-9;t+=step){
 const y=yAt(t);
@@ -940,11 +943,50 @@ function setMetricDisplay(key,value){
 const cfg=METRICS.find(m=>m.key===key);
 document.querySelectorAll(".val-"+key).forEach(el=>{el.textContent=Number(value).toFixed(cfg.decimals);});
 }
-function saveProtein(){
-let v=Number(document.getElementById("proteinInput").value)||0;
-localStorage.setItem("protein",v);document.getElementById("proteinShow").textContent=v;
-document.getElementById("proteinBar").style.width=Math.min(v/110*100,100)+"%";
-upsertWeightHistory(fmt(new Date()),{protein:v});
+let proteinLog=loadProteinLog();
+function loadProteinLog(){
+const raw=localStorage.getItem("proteinLog");
+if(raw){try{return JSON.parse(raw);}catch(e){}}
+return {};
+}
+function saveProteinLog(){localStorage.setItem("proteinLog",JSON.stringify(proteinLog));}
+function addFoodEntry(){
+const nameEl=document.getElementById("foodNameInput");
+const proteinEl=document.getElementById("foodProteinInput");
+const name=nameEl.value.trim();
+const protein=Number(proteinEl.value);
+if(!name||!protein||protein<=0)return;
+const d=fmt(new Date());
+if(!proteinLog[d])proteinLog[d]=[];
+proteinLog[d].push({food:name,protein:protein});
+saveProteinLog();
+nameEl.value="";
+proteinEl.value="";
+renderFoodLog();
+}
+function deleteFoodEntry(index){
+const d=fmt(new Date());
+if(!proteinLog[d])return;
+proteinLog[d].splice(index,1);
+saveProteinLog();
+renderFoodLog();
+}
+function renderFoodLog(){
+const d=fmt(new Date());
+const entries=proteinLog[d]||[];
+const total=Math.round(entries.reduce((s,e)=>s+e.protein,0)*10)/10;
+document.getElementById("proteinShow").textContent=total;
+document.getElementById("proteinBar").style.width=Math.min(total/110*100,100)+"%";
+document.getElementById("proteinTotalShow").textContent=total;
+document.getElementById("proteinBar2").style.width=Math.min(total/110*100,100)+"%";
+const listEl=document.getElementById("foodLogList");
+if(entries.length===0){
+listEl.innerHTML='<p class="note">今日はまだ記録がありません</p>';
+}else{
+listEl.innerHTML=entries.map((e,i)=>`<div class="food"><span>${esc(e.food)}</span><b>${e.protein}g <button class="closebtn" onclick="deleteFoodEntry(${i})">✕</button></b></div>`).join("");
+}
+localStorage.setItem("protein",total);
+upsertWeightHistory(d,{protein:total});
 saveWeightHistory();
 }
 function saveMetric(key){
@@ -972,7 +1014,7 @@ setMetricDisplay(cfg.key,latest[cfg.key]);
 });
 renderWeightTrend();
 }
-
+ 
 /* ===== CSVインポート（eufy Life等） ===== */
 function parseCSV(text){
 const lines=text.split(/\r\n|\n|\r/).filter(l=>l.trim().length>0);
@@ -1053,13 +1095,13 @@ event.target.value="";
 };
 reader.readAsText(file);
 }
-
+ 
 /* ===== バックアップ ===== */
 function exportData(){
 const metricValues={};
 METRICS.forEach(cfg=>{metricValues[cfg.key]=localStorage.getItem(cfg.key);});
 const payload={
-exercisesData,historyLog,weightHistory,
+exercisesData,historyLog,weightHistory,proteinLog,
 protein:localStorage.getItem("protein"),
 ...metricValues,
 exportedAt:new Date().toISOString()
@@ -1082,6 +1124,7 @@ if(!confirm("現在のデータを上書きしてインポートします。よ�
 if(data.exercisesData){exercisesData=data.exercisesData;saveExercises();}
 if(data.historyLog){historyLog=data.historyLog;saveHistory();}
 if(data.weightHistory){weightHistory=data.weightHistory;saveWeightHistory();}
+if(data.proteinLog){proteinLog=data.proteinLog;saveProteinLog();}
 if(data.protein!=null)localStorage.setItem("protein",data.protein);
 METRICS.forEach(cfg=>{if(data[cfg.key]!=null)localStorage.setItem(cfg.key,data[cfg.key]);});
 location.reload();
@@ -1092,13 +1135,12 @@ alert("読み込みに失敗しました。ファイル形式を確認してく�
 reader.readAsText(file);
 event.target.value="";
 }
-
+ 
 /* ===== 初期化 ===== */
 renderAllDays();
 updateDashboardExtra();
 renderCalendar(0);
-let p=localStorage.getItem("protein");
-if(p){document.getElementById("proteinInput").value=p;saveProtein();}
+renderFoodLog();
 METRICS.forEach(cfg=>{
 const v=localStorage.getItem(cfg.key);
 if(v!=null&&v!==""){
@@ -1109,7 +1151,7 @@ setMetricDisplay(cfg.key,Number(v));
 });
 renderWeightTrend();
 renderReport('week');
-
+ 
 /* ===== PWA: Service Worker登録 ===== */
 if("serviceWorker" in navigator){
 window.addEventListener("load",()=>{
@@ -1119,3 +1161,4 @@ navigator.serviceWorker.register("./sw.js").catch(()=>{});
 </script>
 </body>
 </html>
+ 
