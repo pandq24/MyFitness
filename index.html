@@ -546,7 +546,33 @@ const m=Math.floor(restTimerRemaining/60),s=restTimerRemaining%60;
 const el=document.getElementById("timerText");
 if(el)el.textContent=m>0?(m+":"+String(s).padStart(2,"0")):(s+"秒");
 }
+let audioCtx=null;
+function ensureAudioContext(){
+if(!audioCtx){
+try{audioCtx=new (window.AudioContext||window.webkitAudioContext)();}catch(e){}
+}
+if(audioCtx&&audioCtx.state==="suspended"){audioCtx.resume().catch(()=>{});}
+}
+function playBeep(){
+if(!audioCtx)return;
+try{
+const times=[0,0.3,0.6];
+times.forEach(t=>{
+const osc=audioCtx.createOscillator();
+const gain=audioCtx.createGain();
+osc.type="sine";
+osc.frequency.value=880;
+gain.gain.setValueAtTime(0.001,audioCtx.currentTime+t);
+gain.gain.exponentialRampToValueAtTime(0.3,audioCtx.currentTime+t+0.02);
+gain.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+t+0.25);
+osc.connect(gain);gain.connect(audioCtx.destination);
+osc.start(audioCtx.currentTime+t);
+osc.stop(audioCtx.currentTime+t+0.3);
+});
+}catch(e){}
+}
 function startRestTimer(seconds){
+ensureAudioContext();
 clearInterval(restTimerInterval);
 restTimerRemaining=seconds;
 document.getElementById("timerButtons").classList.add("hidden");
@@ -559,6 +585,7 @@ if(restTimerRemaining<=0){
 clearInterval(restTimerInterval);
 restTimerInterval=null;
 if(navigator.vibrate)navigator.vibrate([200,100,200]);
+playBeep();
 showToast("⏱ 休憩終了！次のセットを始めましょう");
 resetTimerUI();
 }
