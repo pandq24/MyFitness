@@ -1,5 +1,5 @@
 
-const CACHE_NAME = "my-fitness-cache-v4";
+const CACHE_NAME = "my-fitness-cache-v5";
 const CORE_ASSETS = [
   "./index.html",
   "./manifest.json",
