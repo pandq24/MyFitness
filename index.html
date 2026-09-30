@@ -228,30 +228,39 @@ footer span{font-size:12px;color:#6b7280}
 /* ===== 初期データ ===== */
 const defaultExercises={
 1:[
-{id:"d1_1",name:"ダンベルフロアプレス",weight:"7.25kg",reps:"8～12回 × 3",target:"胸板"},
-{id:"d1_2",name:"腕立て伏せ",weight:"自重",reps:"8～15回 × 3",target:"胸"},
-{id:"d1_3",name:"サイドレイズ ★",weight:"2.5kg",reps:"12～20回 × 3",target:"肩幅"},
-{id:"d1_4",name:"リアレイズ",weight:"2.5kg",reps:"12～20回 × 3",target:"肩後部"},
-{id:"d1_5",name:"オーバーヘッドトライセプスエクステンション",weight:"5kg（両手）",reps:"10～15回 × 3",target:"三頭"}
+{id:"n1_1",name:"ショルダープレス",weight:"2.5～4kg（両手）",reps:"8～12回 × 3",target:"肩"},
+{id:"n1_2",name:"サイドレイズ",weight:"1.25～2.5kg（両手）",reps:"12～20回 × 3",target:"肩幅"},
+{id:"n1_3",name:"ダンベルフロアプレス",weight:"8.5kg（両手）",reps:"8～12回 × 3",target:"胸板"},
+{id:"n1_4",name:"リバースダンベルフロアプレス",weight:"8.5kg（両手）",reps:"8～12回 × 3",target:"胸（下部）"},
+{id:"n1_5",name:"腕立て伏せ",weight:"自重",reps:"8～15回 × 3",target:"胸"},
+{id:"n1_6",name:"フレンチプレス",weight:"5～7kg",reps:"10～15回 × 3",target:"三頭"},
+{id:"n1_7",name:"シュラッグ",weight:"8.5～12kg（両手）",reps:"10～15回 × 3",target:"僧帽筋"}
 ],
 2:[
-{id:"d2_1",name:"ワンハンドダンベルロウ",weight:"8.5kg",reps:"8～12回 × 3／左右",target:"背中"},
-{id:"d2_2",name:"ダンベルベントオーバーロウ",weight:"7.25kg",reps:"10～15回 × 3",target:"背中"},
-{id:"d2_3",name:"ダンベルプルオーバー",weight:"7.25kg",reps:"10～15回 × 3",target:"広背筋"},
-{id:"d2_4",name:"Yレイズ ★",weight:"1.25kg",reps:"12～15回 × 2",target:"姿勢"},
-{id:"d2_5",name:"ダンベルカール",weight:"5kg",reps:"8～12回 × 3",target:"二頭"},
-{id:"d2_6",name:"ハンマーカール",weight:"5kg",reps:"10～15回 × 2",target:"腕"}
+{id:"n2_1",name:"ワンハンドダンベルロウ",weight:"8.5～12kg",reps:"8～12回 × 3／片側",target:"背中"},
+{id:"n2_2",name:"ダンベルベントオーバーロウ",weight:"8.5kg（両手）",reps:"8～12回 × 3",target:"背中"},
+{id:"n2_3",name:"リアレイズ",weight:"1.25～2.5kg（両手）",reps:"12～20回 × 3",target:"肩後部"},
+{id:"n2_4",name:"Yレイズ",weight:"1.25kg（両手）",reps:"12～15回 × 2",target:"姿勢"},
+{id:"n2_5",name:"ダンベルカール",weight:"5～7kg（両手）",reps:"8～12回 × 3",target:"二頭"},
+{id:"n2_6",name:"ハンマーカール",weight:"5～7kg（両手）",reps:"10～15回 × 2",target:"腕"}
 ],
 3:[
-{id:"d3_1",name:"ダンベルショルダープレス",weight:"5kg",reps:"8～12回 × 3",target:"肩"},
-{id:"d3_2",name:"サイドレイズ ★",weight:"2.5kg",reps:"12～20回 × 3",target:"肩幅"},
-{id:"d3_3",name:"ダンベルフロアプレス",weight:"7.25kg",reps:"8～12回 × 3",target:"胸"},
-{id:"d3_4",name:"ゴブレットスクワット",weight:"8.5kg",reps:"10～15回 × 3",target:"脚"},
-{id:"d3_5",name:"ダンベルルーマニアンデッドリフト",weight:"8.5kg",reps:"10～15回 × 3",target:"脚・臀部"},
-{id:"d3_6",name:"デッドバグ",weight:"自重",reps:"左右10回 × 2",target:"体幹"}
+{id:"n3_1",name:"ショルダープレス",weight:"2.5～4kg（両手）",reps:"8～12回 × 3",target:"肩"},
+{id:"n3_2",name:"サイドレイズ",weight:"1.25～2.5kg（両手）",reps:"12～20回 × 3",target:"肩幅"},
+{id:"n3_3",name:"ダンベルフロアプレス",weight:"8.5kg（両手）",reps:"8～12回 × 3",target:"胸板"},
+{id:"n3_4",name:"リバースダンベルフロアプレス",weight:"8.5kg（両手）",reps:"8～12回 × 3",target:"胸（下部）"},
+{id:"n3_5",name:"ゴブレットスクワット",weight:"8.5～12kg",reps:"10～15回 × 3",target:"脚"},
+{id:"n3_6",name:"ダンベルRDL",weight:"8.5～12kg（両手）",reps:"8～12回 × 3",target:"脚・臀部"},
+{id:"n3_7",name:"デッドバグ",weight:"自重",reps:"左右10回 × 2",target:"体幹"}
 ]};
+const EXERCISE_MENU_VERSION="2026-10-menu1";
  
 let exercisesData=loadExercises();
+if(localStorage.getItem("exerciseMenuVersion")!==EXERCISE_MENU_VERSION){
+exercisesData=JSON.parse(JSON.stringify(defaultExercises));
+saveExercises();
+localStorage.setItem("exerciseMenuVersion",EXERCISE_MENU_VERSION);
+}
 let historyLog=loadHistory();
 let activeDay=1;
 let editMode=false;
