@@ -1,5 +1,4 @@
-
-const CACHE_NAME = "my-fitness-cache-v5";
+const CACHE_NAME = "my-fitness-cache-v6";
 const CORE_ASSETS = [
   "./index.html",
   "./manifest.json",
@@ -7,14 +6,14 @@ const CORE_ASSETS = [
   "./icon-512.png",
   "./apple-touch-icon.png"
 ];
- 
+
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => cache.addAll(CORE_ASSETS).catch(() => {}))
   );
   self.skipWaiting();
 });
- 
+
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then((keys) =>
@@ -23,7 +22,7 @@ self.addEventListener("activate", (event) => {
   );
   self.clients.claim();
 });
- 
+
 self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
   event.respondWith(
@@ -41,4 +40,3 @@ self.addEventListener("fetch", (event) => {
     })
   );
 });
- 
