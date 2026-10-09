@@ -74,7 +74,6 @@ footer span{font-size:12px;color:#6b7280}
 <div class="stat">体重<b><span id="weightShow" class="val-weight">63.0</span> kg</b></div>
 <div class="stat">体脂肪率<b><span id="bodyFatShow" class="val-bodyFat">--</span> %</b></div>
 <div class="stat">タンパク質<b><span id="proteinShow">0</span> / 110 g</b></div>
-<div class="stat">今日の総トン数<b><span id="tonnageShow">0</span> kg</b></div>
 </div>
 <div style="margin-top:12px" class="progress"><div id="proteinBar" class="bar"></div></div>
 <p class="note">目標：ゆっくり増量（月＋0.5～1kg程度）／タンパク質100～120g</p>
@@ -368,9 +367,7 @@ if(r.date===dateStr)r.sets.forEach(s=>total+=s.weight*s.reps);
 }));
 return total;
 }
-function computeTodayTonnage(){return computeTonnageForDate(fmt(new Date()));}
 function updateDashboardExtra(){
-document.getElementById("tonnageShow").textContent=Math.round(computeTodayTonnage());
 }
  
 /* ===== 通常表示・編集表示 ===== */
@@ -500,6 +497,11 @@ html+=`<div class="grid" style="margin-bottom:12px">
 <div class="stat">タンパク質<b>${proteinVal} g</b></div>
 <div class="stat">総トン数<b>${tonnageVal} kg</b></div>
 </div>`;
+const foodEntries=proteinLog[dateStr]||[];
+if(foodEntries.length>0){
+html+='<div class="trendtitle" style="margin-top:4px">🍚 この日に食べたもの</div>';
+html+=foodEntries.map(e=>`<div class="food"><span>${esc(e.food)}</span><b>${e.protein}g</b></div>`).join("");
+}
 if(records.length===0){
 html+='<p class="note">この日の筋トレ記録はありません</p>';
 }else{
@@ -1197,4 +1199,3 @@ navigator.serviceWorker.register("./sw.js").catch(()=>{});
 </script>
 </body>
 </html>
- 
